@@ -11,7 +11,7 @@
     Title="FullScreenAppTest">
 
 
-    <Grid>
+    <Grid x:Name="grid1" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -21,13 +21,13 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
+        <StackPanel x:Name="ButtonPane" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
             <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
             <TextBlock x:Name="textBlock1">tb1</TextBlock>
         </StackPanel>
 
         <controls:WebView2 x:Name="MyWebView" Grid.Row="1" Grid.Column="0"
-                           Source="https://www.microsoft.com" HorizontalAlignment="Stretch"
+                           Source="https://kedarake-haidarake.hatenablog.jp/" HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"/>
     </Grid>
     

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -50,7 +51,7 @@ namespace FullScreenAppTest
         {
             if (_presenter is not null)
             {
-                _presenter.IsAlwaysOnTop = fs_flg; // trueにすると常に前面になる
+                _presenter.IsAlwaysOnTop = fs_flg & false; // trueにすると常に前面になる
                 _presenter.SetBorderAndTitleBar(hasBorder: !fs_flg, hasTitleBar: !fs_flg);
                 _presenter.IsResizable = !fs_flg; // falseにすると画面サイズ変更不可になる
                 _presenter.IsMinimizable = fs_flg; // trueにするとディスプレイの端までウインドウをでかくできる
@@ -66,6 +67,9 @@ namespace FullScreenAppTest
                 prev_width = this.AppWindow.ClientSize.Width;
                 prev_height = this.AppWindow.ClientSize.Height;
 
+                 // WebView2用Gridのサイズをプライマリモニターに収めるためのパラメータ
+                double grid_width = 0, grid_height = 0;
+
                 // ディスプレイの左上の座標と、サイズを取得
                 int topLeft_x = 0, topLeft_y = 0;
                 int width = 0, height = 0;
@@ -78,6 +82,13 @@ namespace FullScreenAppTest
                     // 縦幅と横幅合計する
                     width += disp.CurrentSetting.Resolution.Width;
                     height += disp.CurrentSetting.Resolution.Height;
+
+                    // プライマリモニターであれば、WebView2用の設定値に値入れる
+                    if(disp.CurrentSetting.Position.X == 0 && disp.CurrentSetting.Position.Y == 0)
+                    {
+                        grid_width = disp.CurrentSetting.Resolution.Width;
+                        grid_height = disp.CurrentSetting.Resolution.Height;
+                    }
                 }
 
                 // TextBlockにディスプレイの左上と右下の座標を出力(確認用)
@@ -85,11 +96,17 @@ namespace FullScreenAppTest
 
                 // ウインドウの左上を(min_x,min_y)に、サイズを(width,height)にする。
                 this.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(topLeft_x, topLeft_y, width, height));
+
+                // WebViewの表示範囲をプライマリモニターに収める
+                grid1.Width = grid_width;
+                grid1.Height = grid_height;
             }
             else
             {
                 myButton.Content = "ウインドウモード";
                 this.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(prev_x, prev_y, prev_width, prev_height));
+                grid1.Width = prev_width;
+                grid1.Height = prev_height;
             }
         }
     }
