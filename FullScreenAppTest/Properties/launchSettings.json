@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FullScreenAppTest (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "FullScreenAppTest (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
