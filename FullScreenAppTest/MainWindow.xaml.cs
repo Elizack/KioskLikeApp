@@ -98,6 +98,7 @@ namespace FullScreenAppTest
                 this.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(topLeft_x, topLeft_y, width, height));
 
                 // WebViewの表示範囲をプライマリモニターに収める
+                grid1.Translation = new Vector3(Math.Abs(topLeft_x), Math.Abs(topLeft_y), 0); // ウインドウの左上が原点。それに対する相対位置を指定する。
                 grid1.Width = grid_width;
                 grid1.Height = grid_height;
             }
@@ -105,6 +106,7 @@ namespace FullScreenAppTest
             {
                 myButton.Content = "ウインドウモード";
                 this.AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(prev_x, prev_y, prev_width, prev_height));
+                grid1.Translation = new Vector3(0, 0, 0);
                 grid1.Width = prev_width;
                 grid1.Height = prev_height;
             }
