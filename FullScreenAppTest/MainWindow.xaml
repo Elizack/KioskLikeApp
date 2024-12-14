@@ -6,15 +6,31 @@
     xmlns:local="using:FullScreenAppTest"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Title="FullScreenAppTest">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="textBlock1">tb1</TextBlock>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="0" Grid.Column="0">
+            <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+            <TextBlock x:Name="textBlock1">tb1</TextBlock>
+        </StackPanel>
 
-    </StackPanel>
+        <controls:WebView2 x:Name="MyWebView" Grid.Row="1" Grid.Column="0"
+                           Source="https://www.microsoft.com" HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"/>
+    </Grid>
+    
+
 
 </Window>
